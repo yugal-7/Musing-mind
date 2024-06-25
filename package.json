@@ -1,0 +1,10 @@
+{
+  "name": "musing-mind",
+  "version": "1.0.0",
+  "description": "Bloging website",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yugal",
+  "license": "ISC"
+}
