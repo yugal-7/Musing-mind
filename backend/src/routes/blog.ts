@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { Hono } from "hono";
 import { verify } from "hono/jwt";
-import { createPostInput, updatePostInput } from 'common';
+//import { createPostInput, updatePostInput } from 'common';
 
 export const blogRouter = new Hono<{
 	Bindings: {
@@ -39,14 +39,14 @@ blogRouter.post('/', async (c) => {
 
 	const body = await c.req.json();
 
-	const { success } = createPostInput.safeParse(body);
+	// const { success } = createPostInput.safeParse(body);
 
-    if(!success){
-        c.status(411);
-        c.json({
-            message: 'Inputs are not correct'
-        })
-    }
+    // if(!success){
+    //     c.status(411);
+    //     c.json({
+    //         message: 'Inputs are not correct'
+    //     })
+    // }
 
 	const post = await prisma.post.create({
 		data: {
@@ -68,14 +68,14 @@ blogRouter.post('/', async (c) => {
 
 	const body = await c.req.json();
 
-	const { success } = updatePostInput.safeParse(body);
+	// const { success } = updatePostInput.safeParse(body);
 
-    if(!success){
-        c.status(411);
-        c.json({
-            message: 'Inputs are not correct'
-        })
-    }
+    // if(!success){
+    //     c.status(411);
+    //     c.json({
+    //         message: 'Inputs are not correct'
+    //     })
+    // }
 
 	prisma.post.update({
 		where: {

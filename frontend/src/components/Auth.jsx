@@ -1,21 +1,20 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { SignupInput } from "@100xdevs/medium-common";
 import axios from "axios";
 import { BACKEND_URL } from "../config";
 
-export const Auth = ({ type }: { type: "signup" | "signin" }) => {
+export const Auth = ({ type }) => {
     const navigate = useNavigate();
-    const [postInputs, setPostInputs] = useState<SignupInput>({
+    const [postInputs, setPostInputs] = useState({
         name: "",
-        username: "",
+        email: "",
         password: ""
     });
 
     async function sendRequest() {
         try {
             const response = await axios.post(`${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`, postInputs);
-            const jwt = response.data;
+            const jwt = response.data.jwt;
             localStorage.setItem("token", jwt);
             navigate("/blogs");
         } catch(e) {
@@ -39,16 +38,16 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
                     </div>
                 </div>
                 <div className="pt-8">
-                    {type === "signup" ? <LabelledInput label="Name" placeholder="Harkirat Singh..." onChange={(e) => {
+                    {type === "signup" ? <LabelledInput label="Name" placeholder="Name .... " onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
                             name: e.target.value
                         })
                     }} /> : null}
-                    <LabelledInput label="Username" placeholder="harkirat@gmail.com" onChange={(e) => {
+                    <LabelledInput label="Username" placeholder="demo@gmail.com" onChange={(e) => {
                         setPostInputs({
                             ...postInputs,
-                            username: e.target.value
+                            email: e.target.value
                         })
                     }} />
                     <LabelledInput label="Password" type={"password"} placeholder="123456" onChange={(e) => {
@@ -64,14 +63,7 @@ export const Auth = ({ type }: { type: "signup" | "signin" }) => {
     </div>
 }
 
-interface LabelledInputType {
-    label: string;
-    placeholder: string;
-    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-    type?: string;
-}
-
-function LabelledInput({ label, placeholder, onChange, type }: LabelledInputType) {
+function LabelledInput({ label, placeholder, onChange, type }) {
     return <div>
         <label className="block mb-2 text-sm text-black font-semibold pt-4">{label}</label>
         <input onChange={onChange} type={type || "text"} id="first_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder={placeholder} required />
