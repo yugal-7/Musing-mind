@@ -11,7 +11,14 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240529.0",
+    "common": "workspace:*",
     "prisma": "5.16.1",
     "wrangler": "^3.57.2"
-  }
+  },
+  "description": "``` npm install npm run dev ```",
+  "version": "1.0.0",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
